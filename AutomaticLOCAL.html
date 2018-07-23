@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<body onload="arr()">
+<script>
+//Created with <3 by Nir K.
+function arr() {
+	var hassaddress=""; //Your homeassistant address
+	var hasspass=""; //Your homeassistant password
+	
+	//Build an array containing HASS device records.
+	var hassdevices = new Array();
+	var resp;
+    var xmlHttp = new XMLHttpRequest();
+
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+		{
+			 resp = JSON.parse(xmlHttp.responseText);
+				if (resp != null)
+				{
+
+					for (var t = 0; t < resp.length; t++)
+					{
+						var currid = resp[t]['entity_id'];
+
+
+						if (currid.indexOf("group.") == -1 && currid.indexOf("automation.") == -1 && currid.indexOf("persistent_notification.") == -1 && currid.indexOf("sensor.") == -1 && currid.indexOf("script.") == -1 && currid.indexOf("weather.") == -1 && currid.indexOf("updater.updater") == -1)
+						{
+							var currname = resp[t]['attributes']['friendly_name'];
+							//SET YOUR MEDIA PLAYER HERE
+							if (currid.indexOf('media_player.spotify') != -1)
+							{
+								hassdevices.push("<p>"+currname+"<br><button id="+currid+" type=button onclick=homefunc&lpar;this&period;id&comma;&#39;media_play_pause&#39;&rpar;>Play</button><button id="+currid+" type=button onclick=homefunc&lpar;this&period;id&comma;&#39;media_play_pause&#39;&rpar;>Pause</button><br><button id="+currid+" type=button onclick=homefunc&lpar;this&period;id&comma;&#39;media_previous_track&#39;&rpar;>Previous</button><button id=" + currid+ " type=button onclick=homefunc&lpar;this&period;id&comma;&#39;media_next_track&#39;&rpar;>Next</button></p>");							
+							}
+							else
+							{
+								hassdevices.push("<p>"+currname+"<br><button id="+currid+" type=button onclick=homefunc&lpar;this&period;id&comma;&#39;turn_on&#39;&rpar;>On</button> <button id=" + currid+ " type=button onclick=homefunc&lpar;this&period;id&comma;&#39;turn_off&#39;&rpar;>Off</button></p>");
+							}		
+						}
+
+					}
+					
+					
+					//Create a HTML Table element.
+					var table = document.createElement("TABLE");
+					table.border = "1";
+					table.width = "99%";
+					//Get the count of columns.
+					var columnCount = 5;
+					
+					var rowcount = Math.ceil(hassdevices.length/columnCount);
+					
+					var pushcount = 0;
+					//Add the data rows.
+					for (var i = 0; i < columnCount; i++) 
+					{
+						row = table.insertRow(-1);
+						for (var j = 0; j < rowcount; j++) {
+							var cell = row.insertCell(-1);
+							if (pushcount < hassdevices.length)
+							{
+								cell.innerHTML = hassdevices[pushcount];
+								pushcount = pushcount + 1;
+								//console.log(cell.innerHTML);
+							}
+						}
+					}
+				 
+					var dvTable = document.getElementById("dvTable");
+					dvTable.innerHTML = "";
+					dvTable.appendChild(table);
+				}
+				
+			}
+		}
+
+				xmlHttp.open("GET", hassaddress+"/api/states?api_password="+hasspass, true); // true for asynchronous 
+				xmlHttp.send(null);
+};
+
+function homefunc(id, state) {
+	var hassaddress=""; //Your homeassistant address
+	var hasspass=""; //Your homeassistant password
+	
+
+	if ((id != null) && (state != null))
+	{
+		var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+		xmlhttp.open("POST", hassaddress+"/api/services/"+id.substring(0,id.indexOf('.'))+"/"+state);
+		xmlhttp.setRequestHeader('x-ha-access', hasspass);
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.send(JSON.stringify({entity_id:id}));
+	}
+
+}
+
+</script>
+<div id="dvTable">
+</div>
+</body>
+</html>
+
+

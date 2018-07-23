@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<table border="2" style="height: 100%; width: 100%; border-collapse: collapse; border-style: dashed;">
+<body onload="startup()">
+<script>
+//Created with <3 by Nir K.
+function homefunc(id, state) {
+	var hassadress=""; //your Homeassistant address (without / at the end)
+	var hasspass=""; //your Homeassistant password
+
+	//Should work on all e-ink devices with a browser that supports Javascript (Kindle 2 (2009) in advanced mode and above)	
+	//LOCAL SETUP
+	
+	
+	
+	var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+	xmlhttp.open("POST", hassadress+"/api/services/"+id.substring(0,id.indexOf('.'))+"/"+state);
+	xmlhttp.setRequestHeader('x-ha-access', hasspass);
+	xmlhttp.setRequestHeader("Content-Type", "application/json");
+	xmlhttp.send(JSON.stringify({entity_id:id}));
+
+	/*
+	Other request types if the above doesn't work for your device
+	//POST	
+	var formData = new FormData();
+	formData.append("entity_id", id);
+	var request = new XMLHttpRequest();
+	request.open("POST", "URL");
+	request.send(JSON.stringify(formData));
+	
+	//Alternative Javascript posts that might work for other devices	
+
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", hassadress);
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "id");
+	hiddenField.setAttribute("value", id);
+	form.appendChild(hiddenField);
+	hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "state");
+	hiddenField.setAttribute("value", state);
+	form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+	
+	*/
+}
+
+function startup() {
+	//SET YOUR WEATHER ENTITY_ID HERE
+	weather("weather.yweather");
+	
+	//Don't change
+	sensors("group.sensors", true);
+}
+
+function weather(id) {
+	var hassadress=""; //your Homeassistant address
+	var hasspass=""; //your Homeassistant password
+	
+	if (id != null)
+	{
+	    var xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+			{
+			   resp = JSON.parse(xmlHttp.responseText);
+			   var dvTable = document.getElementById("weather");
+			   dvTable.innerHTML = "<p><br>Weather<br /> Temp: "+resp['attributes']['temperature']+" Degrees <br /><p> Humidity: "+resp['attributes']['humidity']+"%</p><button id="+id+" type=button onclick=weather&lpar;this&period;id&comma;false&rpar;>Refresh</button></p><br />";
+			}
+		}
+		//SET YOUR WEATHER ENTITY_ID HERE
+		xmlHttp.open("GET", hassadress+"/api/states/weather.yweather?api_password="+hasspass, true); // true for asynchronous 
+		xmlHttp.send(null);
+	}
+}
+function sensors(id, async) {
+	var hassadress=""; //your Homeassistant address
+	var hasspass=""; //your Homeassistant password
+	
+	var dvTable = document.getElementById("sensors");
+	if (id != null)
+	{
+		
+		var xmlHttp1 = new XMLHttpRequest();
+		xmlHttp1.onreadystatechange = function() { 
+        if (xmlHttp1.readyState == 4 && xmlHttp1.status == 200)
+			{
+			   resp = JSON.parse(xmlHttp1.responseText);
+			   dvTable.innerHTML = "SSL:"+resp['state']+" days";
+			}
+		}
+		//SET YOUR 1ST SENSOR ENTITY_ID HERE
+		xmlHttp1.open("GET", hassadress+"/api/states/sensor.ssl_certificate_expiry?api_password="+hasspass, async); // true for asynchronous 
+		xmlHttp1.send(null);
+	
+	
+	    var xmlHttp2 = new XMLHttpRequest();
+		xmlHttp2.onreadystatechange = function() { 
+        if (xmlHttp2.readyState == 4 && xmlHttp2.status == 200)
+			{
+			   resp = JSON.parse(xmlHttp2.responseText);
+			   dvTable.innerHTML = dvTable.innerHTML+ "<br /> Date:"+resp['state'];
+			}
+		}
+		//SET YOUR 2ND SENSOR ENTITY_ID HERE
+		xmlHttp2.open("GET", hassadress+"/api/states/sensor.date__time?api_password="+hasspass, async); // true for asynchronous 
+		xmlHttp2.send(null);
+		
+		var xmlHttp3 = new XMLHttpRequest();
+		xmlHttp3.onreadystatechange = function() { 
+        if (xmlHttp3.readyState == 4 && xmlHttp3.status == 200)
+			{
+			   resp = JSON.parse(xmlHttp3.responseText);
+			   dvTable.innerHTML = dvTable.innerHTML + "<br /> Uptime:"+resp['state']+" days";
+			}
+		}
+		//SET YOUR 3RD SENSOR ENTITY_ID HERE
+		xmlHttp3.open("GET", hassadress+"/api/states/sensor.uptime?api_password="+hasspass, async); // true for asynchronous 
+		xmlHttp3.send(null);
+		
+		
+
+		var xmlHttp4 = new XMLHttpRequest();
+		xmlHttp4.onreadystatechange = function() { 
+        if (xmlHttp4.readyState == 4 && xmlHttp4.status == 200)
+			{
+			   resp = JSON.parse(xmlHttp4.responseText);
+			   dvTable.innerHTML = dvTable.innerHTML +"<br /> Waze:"+resp['state']+" minutes";
+			}
+		}
+		//SET YOUR 4TH SENSOR ENTITY_ID HERE
+		xmlHttp4.open("GET", hassadress+"/api/states/sensor.waze_travel_time?api_password="+hasspass, async); // true for asynchronous 
+		xmlHttp4.send(null);
+	}
+	
+	
+}
+</script>
+<tr style="height: 21px;">
+<td style="width: 25%; height: 21px; text-align: center;">
+<p></p>
+<p>Living Room lights <br /> <button id="switch.livingroom_light" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.livingroom_light" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px; text-align: center;">
+<p></p>
+<p>TV<br /> <button id=" switch.tv_samsung" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.tv_samsung" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px; text-align: center;">
+<p></p>
+<p>Living room AC <br /> <button id="switch.electrago_on" type="button" onclick="homefunc(this.id, 'turn_on')">On</button><button id="switch.electrago_on" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px; text-align: center;">
+<p></p>
+<p>Stereo <br /> <button id="switch.stereo" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.stereo" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+</tr>
+<tr style="height: 21px; text-align: center;">
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Bedroom lights <br /> <button id="switch.bedroom_light" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.bedroom_light" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Night light <br /> <button id="switch.night_light" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.night_light" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Bedroom AC <br /> <button id="switch.hisense_on" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.hisense_on" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Projector <br /> <button id="switch.benq_projector" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.benq_projector" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+</tr>
+<tr style="height: 21px; text-align: center;">
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Computer <br /> <button id="switch.computer" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.computer" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>LED Lights <br /> <button id="switch.led_light" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.led_light" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Playstation 4 <br /> <button id="media_player.playstation_4" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="media_player.playstation_4" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Xbox One <br /> <button id="switch.xbox" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.xbox" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+</tr>
+<tr style="height: 21px; text-align: center;">
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Bedroom Fan <br /> <button id="switch.bedroom_fan" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.bedroom_fan" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px;">
+<p></p>
+<p>Spotify<br /> <button id="media_player.spotify" type="button" onclick="homefunc(this.id, 'media_play_pause')">Play</button> <button type="button" id="media_player.spotify" onclick="homefunc(this.id, 'media_play_pause')">Pause</button></p>
+<button type="button" id="media_player.spotify" onclick="homefunc(this.id, 'media_previous_track')">Previous</button><button type="button" id="media_player.spotify" onclick="homefunc(this.id, 'media_next_track')">Next</button>
+<p></p>
+</td>
+<td id="weather" style="width: 25%; height: 21px;">
+<p></p>
+<p>Weather <br /> <button type="button" id="weather.yweather" onclick="weather(this.id)">Refresh</button></p>
+<p></p>
+</td>
+<td style="width: 25%; height: 21px;">
+<p></p>
+Sensors
+<p id="sensors"></p>
+<button type="button" id="group.sensors" onclick="sensors(this.id, true)">Refresh</button>
+<p></p>
+</td>
+</tr>
+</body>
+</table>
+</div>
+</div>
+</div>
+</html>
