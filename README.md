@@ -55,7 +55,7 @@ type ~ds in the search bar and click search.
 Older Kindles:
 Type ~disableScreensaver in the search box (type del on the home screen) and your Kindle will not go into sleep mode. ~resumeScreensaver will revert the Kindle back to its default (screensaver enabled) state. Note that this does not increase power consumption, as the Kindle consumes no power (with wireless off) when displaying a page
 
-Or <Del> to open the search box on the home screen ;debugOn <Enter> ~disableScreensaver <Enter>
+Or < Del > to open the search box on the home screen ;debugOn <Enter> ~disableScreensaver <Enter>
 NOTE: this also stops you from manually using the power switch to enter sleep mode.
 To re-enable: ~resumeScreensaver <Enter> and to turn off debug mode: ;debugOff <Enter>
 
