@@ -19,12 +19,14 @@ Open the HTML file in any text editor and fill in your HomeAssistant address in 
     Scroll down to the HTML code and change the button ids to match your entity ids from your own homeassistant installation.
     Finally, upload it directly to your e-ink device or to a webserver (if you are uploading online, make sure you are protecting this with a password), For Kindle devices, upload to either your root directory or a folder, open the experimental browser and go to
 file:///mnt/us/FOLDER/ManualLOCAL.html
+(Replace "FOLDER" with the folder you created or remove it if you uploaded to root directory)
 
 2. For Automatic Local - 
     Open the HTML file in any text editor and fill in your HomeAssistant address in hassadress and password in hasspass (Note there are 2 places to fill this in)
     if you have a media player other than Spotify, change the id from media_player.spotify under where it says "SET YOUR MEDIA PLAYER HERE"
     Finally, upload it directly to your e-ink device or to a webserver (if you are uploading online, make sure you are protecting this with a password), For Kindle devices, upload to either your root directory or a folder, open the experimental browser and go to
 file:///mnt/us/FOLDER/AutomaticLOCAL.html
+(Replace "FOLDER" with the folder you created or remove it if you uploaded to root directory)
 
 3. For Manual Cloud - 
 Open the HTML file in any text editor and fill in your HomeAssistant password in hasspass (Note there are 3 places to fill this in), save.
@@ -37,6 +39,7 @@ Now Integromat will want example data, open the HTML file in an editor and fill 
     Go back to the HTML file, scroll down the code and change the button ids to match your entity ids from your own HomeAssistant installation, you can add additional buttons or remove exccess buttons as you wish.
     Finally, upload it directly to your e-ink device or to a webserver (if you are uploading online, make sure you are protecting this with a password), For Kindle devices, upload to either your root directory or a folder, open the experimental browser and go to
 file:///mnt/us/FOLDER/ManualCLOUD.html
+(Replace "FOLDER" with the folder you created or remove it if you uploaded to root directory)
 
 4. For Automatic Cloud
 Register for a free account at https://www.integromat.com
@@ -45,6 +48,9 @@ Now Integromat will want example data, open the HTML file in an editor and fill 
 Now when the HTML file is opened, the table should auto-populate with your homeassistant devices.
 Go to Scenarios again and create another scenario, On the bottom menu click the three dots and select "Import blueprint", select the Action.json file from the Integromat Automatic Cloud folder in this repository. Click on Webhook, Add, and give it a name. Again, Integromat will want example data, fill in the new webhook URL in "webhookactionurl" and the password in "hasspass" and save the file. Open the HTML file again and click some button, the webhook should be configured.
 Again click the HTTP module and change "YOUR_HASS_URL:PORT" to your real homeassistant installation URL, click OK, hit Save on the bottom left, and turn this integration on (buttom left slider).
+    Finally, upload it directly to your e-ink device or to a webserver (if you are uploading online, make sure you are protecting this with a password), For Kindle devices, upload to either your root directory or a folder, open the experimental browser and go to
+file:///mnt/us/FOLDER/ManualCLOUD.html
+(Replace "FOLDER" with the folder you created or remove it if you uploaded to root directory)
 
 ### Misc
 You can disable the screensaver/sleep mode in your Kindle 
