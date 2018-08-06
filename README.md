@@ -14,6 +14,13 @@ There are four types of dashboards at your disposal split into two categories: L
 - Automatic cloud dashboard - Gets all your HomeAssistant devices automatically (disregards Groups, Sensors, Automations, Scripts, Update notifications and Persistant Notifications) using your exposed installation and Integromat (free tier)
 
 ### Installation & Configuration
+For all dashboards, you will need to add in the http module
+
+cors_allowed_origins:
+  - 'null'
+ 
+(Or if you are uploading to a webserver, replace null with the webserver address)
+
 1. For Manual Local - 
 Open the HTML file in any text editor and fill in your HomeAssistant address in hassadress and password in hasspass (Note there are 3 places to fill this in)
     Scroll down to the HTML code and change the button ids to match your entity ids from your own homeassistant installation.
