@@ -22,6 +22,7 @@ cors_allowed_origins:
 ~~~~
  
 (Or if you are uploading to a webserver, replace null with the webserver address)
+Don't forget to restart your HA server for this new setting to work.
 
 
 1. For Manual Local - 
