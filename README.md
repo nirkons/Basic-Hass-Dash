@@ -16,8 +16,10 @@ There are four types of dashboards at your disposal split into two categories: L
 ### Installation & Configuration
 For all dashboards, you will need to add in the http module
 
+~~~~
 cors_allowed_origins:
   - 'null'
+~~~~
  
 (Or if you are uploading to a webserver, replace null with the webserver address)
 
