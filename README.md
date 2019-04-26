@@ -4,6 +4,7 @@
 
 Discussion:
 https://community.home-assistant.io/t/very-basic-homeassistant-dashboard-for-e-ink-devices-and-kiosk-apps/61002
+
 Notice: This repo is not actively maintained, due to the dynamic nature of HASS development, this may not work anymore or require further configuration (for example, this uses the Legacy API and must be enabled in new versions of HASS, the legacy API feature might be dropped in future releases and this dashboard will cease to work)
 
 
