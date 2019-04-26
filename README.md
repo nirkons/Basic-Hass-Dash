@@ -2,6 +2,9 @@
 
 ![Pic](https://user-images.githubusercontent.com/24681877/43090528-467e10d4-8eb0-11e8-86ad-47764cf078e1.jpg)
 
+Discussion:
+https://community.home-assistant.io/t/very-basic-homeassistant-dashboard-for-e-ink-devices-and-kiosk-apps/61002
+
 This basic HA dashboard is great for E-ink devices with a browser going as far back as the Kindle 2 (using Advanced mode browser), and also for all the Kiosk browsers on the Play store/App store that fail to run the original HomeAssistant dashboard.
 
 There are four types of dashboards at your disposal split into two categories: Local (A Homeassistant installation which is NOT exposed to the internet and does not use an SSL certificate) and Cloud (A homeassistant installation that is exposed and is using a domain name with an SSL certificate).
