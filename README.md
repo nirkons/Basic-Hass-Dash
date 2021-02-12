@@ -9,7 +9,7 @@ Notice: This repo is not actively maintained, but has been updated at the beginn
 
 This basic HA dashboard is great for E-ink devices with a browser going as far back as the Kindle 2 (using Advanced mode browser), and also for all the Kiosk browsers on the Play store/App store that fail to run the original HomeAssistant dashboard.
 
-There are 2 types of dashboards at your disposal split into two categories: Local (A Homeassistant installation which is NOT exposed to the internet and does not use an SSL certificate) and Cloud (A homeassistant installation that is exposed and is using a domain name with an SSL certificate).
+There are 2 types of dashboards at your disposal:
   - Manual local dashboard  - Use this template and edit/add your own table cells on your own and set only the specific devices you want (including Sensors)
 
   - Automatic local dashboard - Gets all your HomeAssistant devices automatically (disregards Groups, Sensors, Automations, Scripts, Update notifications and Persistant Notifications).
