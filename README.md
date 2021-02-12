@@ -27,14 +27,14 @@ Don't forget to restart your HA server for this new setting to work.
 
 
 1. For Manual Local - 
-Open the HTML file in any text editor and fill in your HomeAssistant address in hassadress and Long Lived access token in hasspass (Note there are 3 places to fill this in), you can get a long lived token through your user's profile page in HomeAssistant
+Open the HTML file in any text editor and fill in your HomeAssistant address in hassadress and Long Lived access token in hasspass (Note there are 3 places to fill this in), you can get a long lived token through your user's profile page in HomeAssistant.
     Scroll down to the HTML code and change the button ids to match your entity ids from your own homeassistant installation.
     Finally, upload it directly to your e-ink device or to a webserver (if you are uploading online, make sure you are protecting this with a password), For Kindle devices, upload to either your root directory or a folder, open the experimental browser and go to
 file:///mnt/us/FOLDER/ManualLOCAL.html
 (Replace "FOLDER" with the folder you created or remove it if you uploaded to root directory)
 
 2. For Automatic Local - 
-    Open the HTML file in any text editor and fill in your HomeAssistant address in hassadress and Long Lived access token in hasspass (Note there are 2 places to fill this in), you can get a long lived token through your user's profile page in HomeAssistant
+    Open the HTML file in any text editor and fill in your HomeAssistant address in hassadress and Long Lived access token in hasspass (Note there are 2 places to fill this in), you can get a long lived token through your user's profile page in HomeAssistant.
     if you have a media player other than Spotify, change the id from media_player.spotify under where it says "SET YOUR MEDIA PLAYER HERE"
     Finally, upload it directly to your e-ink device or to a webserver (if you are uploading online, make sure you are protecting this with a password), For Kindle devices, upload to either your root directory or a folder, open the experimental browser and go to
 file:///mnt/us/FOLDER/AutomaticLOCAL.html
