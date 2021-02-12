@@ -4,8 +4,8 @@
 <script>
 //Created with <3 by Nir K.
 function arr() {
-	var hassaddress="http://"; //Your homeassistant address. Ex: http://192.168.1.10:8123
-	var hasspass=""; //Your homeassistant long lived token
+	var hassaddress=""; //Your homeassistant address
+	var hasspass=""; //Your homeassistant password
 	
 	//Build an array containing HASS device records.
 	var hassdevices = new Array();
@@ -74,22 +74,20 @@ function arr() {
 			}
 		}
 
-				xmlHttp.open("GET", hassaddress+"/api/states", true); // true for asynchronous 
-				xmlHttp.setRequestHeader('Authorization', "Bearer "+hasspass);
-				xmlHttp.setRequestHeader("Content-Type", "application/json");
+				xmlHttp.open("GET", hassaddress+"/api/states?api_password="+hasspass, true); // true for asynchronous 
 				xmlHttp.send(null);
 };
 
 function homefunc(id, state) {
-	var hassaddress="http://"; //Your homeassistant address. Ex: http://192.168.1.10:8123
-	var hasspass=""; //Your homeassistant long lived token
+	var hassaddress=""; //Your homeassistant address
+	var hasspass=""; //Your homeassistant password
 	
 
 	if ((id != null) && (state != null))
 	{
 		var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
 		xmlhttp.open("POST", hassaddress+"/api/services/"+id.substring(0,id.indexOf('.'))+"/"+state);
-		xmlhttp.setRequestHeader('Authorization', "Bearer "+hasspass);
+		xmlhttp.setRequestHeader('x-ha-access', hasspass);
 		xmlhttp.setRequestHeader("Content-Type", "application/json");
 		xmlhttp.send(JSON.stringify({entity_id:id}));
 	}

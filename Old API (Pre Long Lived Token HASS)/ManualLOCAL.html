@@ -5,8 +5,8 @@
 <script>
 //Created with <3 by Nir K.
 function homefunc(id, state) {
-	var hassaddress="http://"; //Your homeassistant address. Ex: http://192.168.1.10:8123
-	var hasspass=""; //Your homeassistant long lived token
+	var hassadress=""; //your Homeassistant address (without / at the end)
+	var hasspass=""; //your Homeassistant password
 
 	//Should work on all e-ink devices with a browser that supports Javascript (Kindle 2 (2009) in advanced mode and above)	
 	//LOCAL SETUP
@@ -14,8 +14,8 @@ function homefunc(id, state) {
 	
 	
 	var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-	xmlhttp.open("POST", hassaddress+"/api/services/"+id.substring(0,id.indexOf('.'))+"/"+state);
-	xmlhttp.setRequestHeader('Authorization', "Bearer "+hasspass);
+	xmlhttp.open("POST", hassadress+"/api/services/"+id.substring(0,id.indexOf('.'))+"/"+state);
+	xmlhttp.setRequestHeader('x-ha-access', hasspass);
 	xmlhttp.setRequestHeader("Content-Type", "application/json");
 	xmlhttp.send(JSON.stringify({entity_id:id}));
 
@@ -32,7 +32,7 @@ function homefunc(id, state) {
 
     var form = document.createElement("form");
     form.setAttribute("method", "post");
-    form.setAttribute("action", hassaddress);
+    form.setAttribute("action", hassadress);
 	var hiddenField = document.createElement("input");
 	hiddenField.setAttribute("type", "hidden");
 	hiddenField.setAttribute("name", "id");
@@ -58,8 +58,8 @@ function startup() {
 }
 
 function weather(id) {
-	var hassaddress="http://"; //Your homeassistant address. Ex: http://192.168.1.10:8123
-	var hasspass=""; //Your homeassistant long lived token
+	var hassadress=""; //your Homeassistant address
+	var hasspass=""; //your Homeassistant password
 	
 	if (id != null)
 	{
@@ -73,15 +73,13 @@ function weather(id) {
 			}
 		}
 		//SET YOUR WEATHER ENTITY_ID HERE
-		xmlHttp.open("GET", hassaddress+"/api/states/weather.yweather", true); // true for asynchronous 
-		xmlHttp.setRequestHeader('Authorization', "Bearer "+hasspass);
-		xmlHttp.setRequestHeader("Content-Type", "application/json");		
+		xmlHttp.open("GET", hassadress+"/api/states/weather.yweather?api_password="+hasspass, true); // true for asynchronous 
 		xmlHttp.send(null);
 	}
 }
 function sensors(id, async) {
-	var hassaddress="http://"; //Your homeassistant address. Ex: http://192.168.1.10:8123
-	var hasspass=""; //Your homeassistant long lived token
+	var hassadress=""; //your Homeassistant address
+	var hasspass=""; //your Homeassistant password
 	
 	var dvTable = document.getElementById("sensors");
 	if (id != null)
@@ -96,9 +94,7 @@ function sensors(id, async) {
 			}
 		}
 		//SET YOUR 1ST SENSOR ENTITY_ID HERE
-		xmlHttp1.open("GET", hassaddress+"/api/states/sensor.ssl_certificate_expiry", async); // true for asynchronous 
-		xmlHttp1.setRequestHeader('Authorization', "Bearer "+hasspass);
-		xmlHttp1.setRequestHeader("Content-Type", "application/json");		
+		xmlHttp1.open("GET", hassadress+"/api/states/sensor.ssl_certificate_expiry?api_password="+hasspass, async); // true for asynchronous 
 		xmlHttp1.send(null);
 	
 	
@@ -111,9 +107,7 @@ function sensors(id, async) {
 			}
 		}
 		//SET YOUR 2ND SENSOR ENTITY_ID HERE
-		xmlHttp2.open("GET", hassaddress+"/api/states/sensor.date__time", async); // true for asynchronous 
-		xmlHttp2.setRequestHeader('Authorization', "Bearer "+hasspass);
-		xmlHttp2.setRequestHeader("Content-Type", "application/json");			
+		xmlHttp2.open("GET", hassadress+"/api/states/sensor.date__time?api_password="+hasspass, async); // true for asynchronous 
 		xmlHttp2.send(null);
 		
 		var xmlHttp3 = new XMLHttpRequest();
@@ -125,9 +119,7 @@ function sensors(id, async) {
 			}
 		}
 		//SET YOUR 3RD SENSOR ENTITY_ID HERE
-		xmlHttp3.open("GET", hassaddress+"/api/states/sensor.uptime", async); // true for asynchronous 
-		xmlHttp3.setRequestHeader('Authorization', "Bearer "+hasspass);
-		xmlHttp3.setRequestHeader("Content-Type", "application/json");			
+		xmlHttp3.open("GET", hassadress+"/api/states/sensor.uptime?api_password="+hasspass, async); // true for asynchronous 
 		xmlHttp3.send(null);
 		
 		
@@ -141,9 +133,7 @@ function sensors(id, async) {
 			}
 		}
 		//SET YOUR 4TH SENSOR ENTITY_ID HERE
-		xmlHttp4.open("GET", hassaddress+"/api/states/sensor.waze_travel_time", async); // true for asynchronous 
-		xmlHttp4.setRequestHeader('Authorization', "Bearer "+hasspass);
-		xmlHttp4.setRequestHeader("Content-Type", "application/json");	
+		xmlHttp4.open("GET", hassadress+"/api/states/sensor.waze_travel_time?api_password="+hasspass, async); // true for asynchronous 
 		xmlHttp4.send(null);
 	}
 	
@@ -180,7 +170,7 @@ function sensors(id, async) {
 </td>
 <td style="width: 25%; height: 21px;">
 <p></p>
-<p>Desk lamp <br /> <button id="switch.desk_lamp" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.desk_lamp" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
+<p>Night light <br /> <button id="switch.night_light" type="button" onclick="homefunc(this.id, 'turn_on')">On</button> <button id="switch.night_light" type="button" onclick="homefunc(this.id, 'turn_off')">Off</button></p>
 <p></p>
 </td>
 <td style="width: 25%; height: 21px;">
